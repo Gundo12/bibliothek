@@ -9,6 +9,50 @@ Das Projekt besteht aus einem TypeScript-Frontend, einer REST-API mit Spring
 Boot und einer PostgreSQL-Datenbank. Beim Start erzeugt das Backend automatisch
 Demodaten, sodass die Anwendung direkt ausprobiert werden kann.
 
+## Systemarchitektur
+
+```mermaid
+flowchart LR
+    subgraph people["Personen"]
+        direction TB
+        user(["Bibliotheksnutzer:in"])
+        developer(["Entwickler:in / API-Client"])
+    end
+
+    subgraph library["Stadtbibliothek · lokaler Entwicklungsrechner"]
+        direction LR
+        frontend["<b>Browser-Frontend</b><br/><small>TypeScript + Snowpack · Port 3000</small>"]
+        backend["<b>REST-API</b><br/><small>Spring Boot · Port 8080<br/>Fachlogik + Scheduler</small>"]
+        database[("<b>PostgreSQL</b><br/><small>Port 5432 · Datenbank bucherei</small>")]
+
+        frontend <-->|"HTTP / JSON"| backend
+        backend <-->|"JPA / JDBC"| database
+    end
+
+    subgraph services["Externe Dienste"]
+        direction TB
+        tailwind["Tailwind CSS<br/><small>jsDelivr CDN</small>"]
+        picsum["picsum.photos<br/><small>Coverbilder</small>"]
+    end
+
+    user -->|"bedient"| frontend
+    developer -->|"REST / JSON"| backend
+    frontend -->|"CSS laden"| tailwind
+    frontend -->|"Coverbilder laden"| picsum
+
+    classDef person fill:#08427b,color:#fff,stroke:#052e56,stroke-width:2px;
+    classDef container fill:#1168bd,color:#fff,stroke:#0b4884,stroke-width:2px;
+    classDef database fill:#438dd5,color:#fff,stroke:#0b4884,stroke-width:2px;
+    classDef external fill:#999,color:#fff,stroke:#666,stroke-width:2px;
+    class user,developer person;
+    class frontend,backend container;
+    class database database;
+    class tailwind,picsum external;
+    style people fill:#fff,stroke:#b8c2cc,stroke-width:1px,color:#263238
+    style services fill:#fff,stroke:#b8c2cc,stroke-width:1px,color:#263238
+    style library fill:#eaf3fb,stroke:#1168bd,stroke-width:2px,color:#0b2840
+```
+
 ## Funktionsumfang
 
 ### Browseroberfläche
