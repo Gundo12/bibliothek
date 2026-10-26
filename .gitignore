@@ -1,0 +1,27 @@
+# Editor- und IDE-Dateien
+.idea/
+.vscode/
+*.iml
+
+# Abhängigkeiten und Build-Ausgaben
+node_modules/
+target/
+build/
+.snowpack/
+
+# Lokale Konfiguration und Geheimnisse
+.env
+.env.*
+!.env.example
+application-local.properties
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Unbereinigtes Ausgangsmaterial des separaten Anti-Cheat-Projekts
+/Projektbericht_Anwendungssysteme.pdf
+/Notebook_endpoint.ipynb
+/generator.py
+/functionapp/
